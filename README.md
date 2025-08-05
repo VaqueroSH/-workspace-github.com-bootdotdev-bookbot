@@ -1,1 +1,1 @@
-# -workspace-github.com-bootdotdev-bookbot
+~/workspace/github.com/bootdotdev/curriculum
