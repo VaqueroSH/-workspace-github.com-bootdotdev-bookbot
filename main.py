@@ -1,4 +1,5 @@
-from stats import get_num_words, get_character_frequency
+import sys
+from stats import get_num_words, get_character_frequency, sort_character_frequency
 
 
 def get_book_text(file_path):
@@ -25,25 +26,33 @@ def get_book_text(file_path):
 
 
 def main():
-    # Example usage
-    book_path = "books/frankenstein.txt"
+    # Check if we have the correct number of arguments
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    
+    # Use the second argument as the book path
+    book_path = sys.argv[1]
+    
     try:
         text = get_book_text(book_path)
         word_count = get_num_words(text)
         char_frequency = get_character_frequency(text)
+        sorted_chars = sort_character_frequency(char_frequency)
         
-        print(f"{word_count} words found in the document")
-        print(f"Character frequency analysis:")
+        print("============= BOOKBOT =============")
+        print(f"Analyzing book found at {book_path}...")
+        print()
+        print("--------- Word Count ---------")
+        print(f"Found {word_count} total words")
+        print("--------- Character Count -------")
         
-        # Show top 10 most frequent characters
-        sorted_chars = sorted(char_frequency.items(), key=lambda x: x[1], reverse=True)
-        for char, count in sorted_chars[:10]:
-            if char == ' ':
-                print(f"  'space': {count}")
-            elif char == '\n':
-                print(f"  'newline': {count}")
-            else:
-                print(f"  '{char}': {count}")
+        for char_data in sorted_chars:
+            char = char_data["char"]
+            count = char_data["num"]
+            print(f"{char}: {count}")
+        
+        print("=============== END ===============")
                 
     except (FileNotFoundError, IOError) as e:
         print(f"Error: {e}")

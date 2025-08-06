@@ -191,6 +191,31 @@ def get_character_frequency(text):
     return char_counts
 
 
+def sort_character_frequency(char_dict):
+    """
+    Convert character frequency dictionary to sorted list of dictionaries.
+    
+    Args:
+        char_dict (dict): Dictionary where keys are characters and values are counts
+        
+    Returns:
+        list: List of dictionaries sorted by count (greatest to least)
+              Each dictionary has format: {"char": character, "num": count}
+    """
+    if not char_dict:
+        return []
+    
+    # Convert dictionary to list of dictionaries
+    char_list = []
+    for char, count in char_dict.items():
+        char_list.append({"char": char, "num": count})
+    
+    # Sort by count in descending order (greatest to least)
+    sorted_list = sorted(char_list, key=lambda x: x["num"], reverse=True)
+    
+    return sorted_list
+
+
 def generate_text_report(text):
     """
     Generate a comprehensive text analysis report.
